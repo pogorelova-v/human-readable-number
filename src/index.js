@@ -41,32 +41,38 @@ module.exports = function toReadable (number) {
     if ( number >= 0 && number <= 19) {
         result = units[number]
     } else if ( numStr.length === 2 && number >= 20){
-          if (number === 20 || number === 30 || number === 40 || number === 50 || number === 60 || number === 70 || number === 80 || number === 90){
-            result = tens[number]
-          } else if ( numStr[0] === 2 && number > 20) {
-            result = twenty + units[1];
-          } else if ( numStr[0] === 3 && number > 30) {
-            result = thirty + units[1];
-          } else if ( numStr[0] === 4 && number > 40) {
-            result = forty + units[1];
-          } else if ( numStr[0] === 5 && number > 50) {
-            result = fifty + units[1];
-          } else if ( numStr[0] === 6 && number > 60) {
-            result = sixty + units[1];
-          } else if ( numStr[0] === 7 && number > 70) {
-            result = seventy + units[1];
-          } else if ( numStr[0] === 8 && number > 80) {
-            result = eighty + units[1];
-          } else if ( numStr[0] === 9 && number > 90) {
-            result = ninety + units[1];
+          if (number == 20 || number == 30 || number == 40 || number == 50 || number == 60 || number == 70 || number == 80 || number == 90){
+            result = tens[numStr[0]]
+          } else if ( numStr[0] == 2 && number > 20) {
+            result = twenty + ' ' + units[numStr[1]];
+          } else if ( numStr[0] == 3 && number > 30) {
+            result = thirty + ' ' + units[numStr[1]];
+          } else if ( numStr[0] == 4 && number > 40) {
+            result = forty + ' ' + units[numStr[1]];
+          } else if ( numStr[0] == 5 && number > 50) {
+            result = fifty + ' ' + units[numStr[1]];
+          } else if ( numStr[0] == 6 && number > 60) {
+            result = sixty + ' ' + units[numStr[1]];
+          } else if ( numStr[0] == 7 && number > 70) {
+            result = seventy + ' ' + units[numStr[1]];
+          } else if ( numStr[0] == 8 && number > 80) {
+            result = eighty + ' ' + units[numStr[1]];
+          } else if ( numStr[0] == 9 && number > 90) {
+            result = ninety + ' ' + units[numStr[1]];
           }
     } else if (numStr.length === 3 && number >= 100 && number % 100 === 0) {
         result = units[numStr[0]] + ' ' +hundred;
-    } else if (numStr.length === 3 && number > 100 && number % 100 !== 0 && numStr[2] !==0){
-        result = units[numStr[0]] + ' ' + hundred + ' ' + tens[numStr[1]] + ' ' + units[numStr[2]]
-    } else if (numStr.length === 3 && number > 100 && number % 100 !== 0 && numStr[2] === 0){
-        result = units[numStr[0]] + ' ' + hundred + ' ' + tens[numStr[1]]
-    }
+    } else if (numStr.length === 3 && number > 100 && number % 100 !== 0){
+      if (numStr[1] == 0){
+        result = units[numStr[0]] + ' ' + hundred + ' ' + units[numStr[2]];
+      } else if (numStr[1] == 1) {
+        result = units[numStr[0]] + ' ' + hundred + ' ' + units[numStr[1] + numStr[2]];
+      } else {
+        if ( numStr[2] != 0) {
+          result = units[numStr[0]] + ' ' + hundred + ' ' + tens[numStr[1]] + ' ' + units[numStr[2]];
+         } else { result = units[numStr[0]] + ' ' + hundred + ' ' + tens[numStr[1]] }
+      }
+      }
+      return result;
+    } 
 
-    return result;
-}
